@@ -16,10 +16,16 @@ The principle to achieve the above uses Terraform Modules:
 Naturally, it is possible to modify the configuration to adapt it to you own needs. Example: if you don't need the provisioning of VMs in vSphere, you can use remove the call to that module in the `main.tf` and modify the other module calls (`rke2-upstream-provision` and `rke2-downstream-provision`) to use some other source for the IP addresses.
 
 # Usage
+
+## Pre-requisites
+
+### Variables
 A number of values necessary to the deployment of a Rancher platform were parametrized, making the module quite flexible. Some variables do not have a default value, it is necessary to provide these values for the configuration to apply. You can run `terraform apply` and answer the prompts with the necessary values, but this would be cumbursome. A better solution is to make use of a `tfvars` kind of file, which is a simple file with key,value pairs providing Terraform with all the necessary input it needs.
 
 An sample `terraform.tfvars` is provided in the configuration, you can adapt it for your own environment.
 
+### RKE2 Binaries
+The module `tf-module-rke2-provision` deploys RKE2 in an Air Gapped environment using the procedure described [here](https://docs.rke2.io/install/airgap/#tarball-method) using the tarvall method. This procedure needs pre-downloaded tarball distribution of RKE2 including the RKE2 binary, all the system container images as well as a SHA256 checksum file, all of which can be found on the [Github Releases page for RKE2](https://github.com/rancher/rke2/releases/). These files should be copied into the folder `tf-module-rke2-provision/rke2`. Please also make sure to have a `install.sh` file in the same folder, coming from the current [RKE2 installation script](https://get.rke2.io/).
 
 # Module description
 ## Requirements
