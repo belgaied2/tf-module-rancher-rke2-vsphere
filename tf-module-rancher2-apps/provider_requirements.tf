@@ -7,9 +7,3 @@ terraform {
   }
 }
 
-provider "rancher2" {
-  # Configuration options
-  api_url = "https://${var.rancher_url}"
-  alias = "rancher"
-  token_key = var.rancher_token
-}

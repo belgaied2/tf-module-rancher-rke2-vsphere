@@ -22,7 +22,7 @@ variable "vm_template" {
 # }
 
 
-variable "vm_count" {
+variable "rancher_vm_count" {
   description = "Number of VMs to spin up for RKE"
   default     = 3
 }
@@ -94,4 +94,31 @@ variable "rke2_token" {
 variable "rancher_bootstrap_password" {
   type = string
   description = "Desired password for Rancher"
+}
+
+variable "downstream_cp_vm_count" {
+  type = number
+  description = "Number of Control Plane VMs for the downstream Cluster"
+
+}
+
+variable "downstream_wk_vm_count" {
+  type = number
+  description = "Number of Worker VMs for the downstream Cluster"
+}
+
+variable "downstream_vm_name_prefix" {
+  type = string
+  description = "Name prefix for the Downstream VMs"
+}
+
+variable "app_cluster_name" {
+  type = string
+  description = "Name of the Downstream Cluster to be created"
+  
+}
+
+variable "app_cluster_description" {
+  type = string
+  description = "Description of the Downstream Cluster to be created"
 }

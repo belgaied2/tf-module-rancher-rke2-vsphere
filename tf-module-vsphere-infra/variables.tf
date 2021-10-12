@@ -16,25 +16,6 @@ variable "vm_template" {
     default = ""
 }
 
-variable "rancher2_api_url" {
-    default = ""
-}
-
-variable "rancher2_access_key" {
-    default = ""
-}
-
-variable "rancher2_secret_key" {
-    default = ""
-}
-
-
-variable "public_key_path" {
-  description = "path of public key for nodes"
-  default     = "~/.ssh/id_rsa.pub"
-}
-
-
 variable "vm_count" {
   description = "Number of VMs to spin up for RKE"
   default = 3
@@ -76,27 +57,7 @@ variable "vsphere_guest_id" {
   default     = "rhel8_64Guest"
 }
 
-variable "ssh_user" {
-  type = string
-  description = "SSH Username to connect to VM with"
-}
-
-variable "ssh_password" {
-  type = string
-  description = "SSH Password to connect to VM with"
-}
-
 variable "vm_name_prefix" {
   description = "Prefix for the VM name in vSphere"
   default     = "rancher-ha"
 }
-
-variable "rke2_token" {
-  description = "Desired RKE2 token"
-}
-
-variable "rancher_hostname" {
-  description = "Desired Hostname for Rancher App"
-}
-
-
