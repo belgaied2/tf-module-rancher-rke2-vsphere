@@ -29,7 +29,7 @@ resource "null_resource" "rke2_common" {
     conn_user     = var.ssh_user
     conn_password = var.ssh_password
     conn_host          = var.vm_ips[count.index]
-    hostname      = count.index < var.cp_vm_count && var.do_deploy_rancher ? "rancher-cdc${count.index + 1}" : count.index < var.cp_vm_count ? "downstream-cp${count.index + 1}" : "downstream-wk-${count.index - var.cp_vm_count + 1}"
+    hostname      = count.index < var.cp_vm_count && var.do_deploy_rancher ? "rancher-${count.index + 1}" : count.index < var.cp_vm_count ? "downstream-cp-${count.index + 1}" : "downstream-wk-${count.index - var.cp_vm_count + 1}"
   }
 
   provisioner "remote-exec" {
