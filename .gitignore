@@ -1,2 +1,6 @@
 /**/.terraform
 /**/*.auto.tfvars
+/**/*rke2*tar.*
+/**/sha256sum-amd64.txt
+/**/.terraform.lock.hcl
+/**/*.sh
