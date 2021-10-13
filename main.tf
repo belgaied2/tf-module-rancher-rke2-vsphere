@@ -79,7 +79,7 @@ module "rke2-downstream-import-cluster" {
   source = "./tf-module-downstream-deploy"
   providers = {
     rancher2 = rancher2.rancher,
-    # kubectl = kubectl.downstream
+    kubectl = kubectl.downstream
     # http     = http-full
    }
   kubeconfig = module.rke2-downstream-provision.kubeconfig

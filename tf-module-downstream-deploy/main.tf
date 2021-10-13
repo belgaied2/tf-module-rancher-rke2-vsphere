@@ -13,25 +13,23 @@ data "http" "get_import_manifest" {
 #   manifest = yamldecode(data.http.get_import_manifest.body)
 # }
 
-# data "kubectl_file_documents" "splitted_manifests" {
-#   content = data.http.get_import_manifest.body
-# }
-
-
-# resource "kubectl_manifest" "import_commmand" {
-#   for_each = data.kubectl_file_documents.splitted_manifests.manifests
-#   yaml_body = each.value
-
-  
-# }
-
-resource "local_file" "kubeconfig" {
-  content = var.kubeconfig
-  filename = "${path.module}/downstream_kubeconfig.yaml"
+data "kubectl_file_documents" "splitted_manifests" {
+  content = data.http.get_import_manifest.body
 }
 
-resource "null_resource" "kubectl_apply" {
-  provisioner "local-exec" {
-    command = "kubectl --kubeconfig ${path.module}/downstream_kubeconfig.yaml apply -f ${rancher2_cluster.rke2_imported.cluster_registration_token[0].manifest_url}"
-  }
+
+resource "kubectl_manifest" "import_commmand" {
+  for_each = data.kubectl_file_documents.splitted_manifests.manifests
+  yaml_body = each.value
 }
+
+# resource "local_file" "kubeconfig" {
+#   content = var.kubeconfig
+#   filename = "${path.module}/downstream_kubeconfig.yaml"
+# }
+
+# resource "null_resource" "kubectl_apply" {
+#   provisioner "local-exec" {
+#     command = "kubectl --kubeconfig ${path.module}/downstream_kubeconfig.yaml apply -f ${rancher2_cluster.rke2_imported.cluster_registration_token[0].manifest_url}"
+#   }
+# }

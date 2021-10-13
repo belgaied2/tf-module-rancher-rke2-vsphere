@@ -96,12 +96,16 @@ provider "rancher2" {
   
 # }
 
-# provider "kubectl" {
-#   alias = "downstream"
+locals {
+  kubeconfig = yamldecode(module.rke2-downstream-provision.kubeconfig)
+}
 
-#   host                = module.rke2-downstream-provision.kubeconfig.clusters[0].cluster.server
-#   client_certificate  = base64decode(module.rke2-downstream-provision.kubeconfig.users[0].user.client-certificate-data)
-#   client_key          = base64decode(module.rke2-downstream-provision.kubeconfig.users[0].user.client-key-data)
-#   cluster_ca_certificate = base64decode(module.rke2-downstream-provision.kubeconfig.clusters[0].cluster.certificate-authority-data)
-#   load_config_file = false
-# }
+provider "kubectl" {
+  alias = "downstream"
+
+  host                = local.kubeconfig.clusters[0].cluster.server
+  client_certificate  = base64decode(local.kubeconfig.users[0].user.client-certificate-data)
+  client_key          = base64decode(local.kubeconfig.users[0].user.client-key-data)
+  cluster_ca_certificate = base64decode(local.kubeconfig.clusters[0].cluster.certificate-authority-data)
+  load_config_file = false
+}
